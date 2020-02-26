@@ -38,7 +38,7 @@ h1 {
     align-content: space-between;
     justify-content: space-evenly;
     background-color: #443449;
-    padding: 0px;
+    padding: 20px;
     text-align: center;
 }
 
@@ -52,12 +52,23 @@ h1 {
     font-size: 30px;
   }
 
-.box {
+.box1 {
+  background-color:#cccccc;
+    margin-top: 20px;
+    height: 14px;
+    width: 360px;
+    text-align: right;
+    font-size: 14px;
+    padding: 10px;
+    position: relative;
+    justify-content: space-evenly;
+}
+
+.box2 {
     background-color:#cccccc;
-    margin-top: 30px;
-    height: 65px;
-    width: 300px;
-    margin: 10px;
+    margin-bottom: 20px;
+    height: 36px;
+    width: 360px;
     text-align: right;
     font-size: 36px;
     padding: 10px;
