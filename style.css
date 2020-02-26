@@ -17,7 +17,7 @@ h1 {
     margin-bottom: 20px;
     margin-right: 3px;
     margin-left: 3px;
-    border: 3px solid rgb(58, 55, 55);
+    /*border: 3px solid rgb(58, 55, 55);*/
     display: inline-flex;
     justify-content: space-evenly;
     background-color: whitesmoke;
@@ -26,6 +26,19 @@ h1 {
     cursor: pointer;
     user-select: none;
     align-items: flex-end;
+    border:1px solid #ccc;
+
+    border-bottom:2px solid #bbb;
+
+    border-top:1px solid #ddd;
+
+    -webkit-border-radius:10px;
+
+    -moz-border-radius:10px;
+  }
+
+  #plus, #minus, #times, #divide {
+    background-color: rgb(250, 200, 93);
   }
 
 .flex-container {
@@ -62,6 +75,13 @@ h1 {
     padding: 10px;
     position: relative;
     justify-content: space-evenly;
+    border-top-width:2px;
+    border-right-width: 2px;
+    border-left-width: 2px;
+    border-bottom-width: 0px;
+    border-right-color:#aaa;
+    border-top-color:#ddd;
+    border-left-color:#ddd;
 }
 
 .box2 {
@@ -74,8 +94,9 @@ h1 {
     padding: 10px;
     position: relative;
     justify-content: space-evenly;
-}
-
-input {
-  font-size: 30pt;
+    border-width:2px;
+    border-top-width: 0px;
+    border-bottom-color:#aaa;
+    border-right-color:#aaa;
+    border-left-color:#ddd;
 }
