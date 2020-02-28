@@ -21,6 +21,18 @@ function display() {
 
     //defines function of each button
 
+    document.getElementById("(").addEventListener("click", function(){
+        joinDigits("1");
+    });
+    document.getElementById(")").addEventListener("click", function(){
+        joinDigits("2");
+    });
+    document.getElementById("backspace").addEventListener("click", function(){
+        joinDigits("3");
+    });
+    document.getElementById("clear").addEventListener("click", function(){
+        clearEntry();
+    });    
     document.getElementById("1").addEventListener("click", function(){
         joinDigits("1");
     });
@@ -66,16 +78,14 @@ function display() {
     document.getElementById("equals").addEventListener("click", function(){
         returnAnswer(equation);
     })
-    document.getElementById("clear").addEventListener("click", function(){
-        clearEntry();
+    document.getElementById("dot").addEventListener("click", function(){
+        joinDigits(".");
     })
 
     //join digits on multi-digit numbers into a single number
         
     function joinDigits(n) {
         nextNum = n;
-        numbers++;
-        console.log(numbers);
         if (typing == false){
             result.textContent = nextNum;
             firstNum = nextNum;
@@ -96,6 +106,7 @@ function display() {
         output.textContent = equation;
         firstNum = 0;
         typing = false;
+    //place each operator in an array when clicked
         operator = x;
     }
 
@@ -104,13 +115,14 @@ function display() {
     function returnAnswer(equation) {
         equation = `${equation} ${firstNum}`;
         output.textContent = `${equation} =`;
-        for (i=0; i<(numbers-1); i++){
-            let tmp_arr = equation.split(/[*+-/]/);
-            console.log("i="+i);
-            console.log("array i=" + tmp_arr[i]);
-            console.log("array i+1=" + tmp_arr[i+1]);
-            answer = operate(tmp_arr[i], tmp_arr[i+1], operator);
-            result.textContent = answer;
+        let tmp_arr = equation.split(/[*+-/]/);
+        answer = tmp_arr[0];
+        for (i=0; i<(tmp_arr.length-1); i++){
+                console.log("i="+i);
+                console.log(answer + operator);
+                answer = operate(answer, tmp_arr[i+1], operator);
+                console.log(tmp_arr[i+1] + "=" + answer);
+                result.textContent = answer;
         }
     }
 

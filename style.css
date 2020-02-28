@@ -1,3 +1,10 @@
+body {
+  background-image: url("desk_image.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
 h1 {
   font-size: 48px;
   text-align: center;
@@ -11,7 +18,7 @@ h1 {
 
   .inputBtn {
     width: 20%;
-    height: 15%;
+    height: 12%;
     font-family: arial,sans-serif;
     font-size: 36px;
     margin-bottom: 20px;
@@ -27,14 +34,16 @@ h1 {
     user-select: none;
     align-items: flex-end;
     border:1px solid #ccc;
-
     border-bottom:2px solid #bbb;
-
     border-top:1px solid #ddd;
-
     -webkit-border-radius:10px;
-
     -moz-border-radius:10px;
+  }
+
+  #backspace, #clear {
+    width: 45%;
+    height: 12%;
+    background-color: rgb(145, 147, 150);
   }
 
   #plus, #minus, #times, #divide {
@@ -45,14 +54,19 @@ h1 {
     width: 400px;
     height: 525px;
     margin: 0 auto;
-    border: 2px solid black;
+    margin-top: 45px;
     display: flex;
     flex-wrap: wrap;
     align-content: space-between;
     justify-content: space-evenly;
-    background-color: #443449;
+    background: #2f2e30 url("metal_image.jpg");
     padding: 20px;
     text-align: center;
+    border:2px solid lightslategray;
+    border-bottom:4px solid lightslategray;
+    border-top:2px solid lightslategrey;
+    -webkit-border-radius:10px;
+    -moz-border-radius:10px;
 }
 
 .rows {
