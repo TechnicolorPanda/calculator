@@ -5,17 +5,6 @@ body {
   background-size: cover;
 }
 
-h1 {
-  font-size: 48px;
-  text-align: center;
-  margin: 0 auto;
-  position: relative;
-  justify-content: space-evenly;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-
   .inputBtn {
     width: 20%;
     height: 12%;
@@ -44,6 +33,10 @@ h1 {
     width: 45%;
     height: 12%;
     background-color: rgb(145, 147, 150);
+  }
+
+  #backspace {
+    font-size: 48px;
   }
 
   #plus, #minus, #times, #divide {
@@ -81,7 +74,7 @@ h1 {
 
 .box1 {
   background-color:#cccccc;
-    margin-top: 20px;
+    margin-top: 10px;
     height: 14px;
     width: 360px;
     text-align: right;
@@ -101,10 +94,10 @@ h1 {
 .box2 {
     background-color:#cccccc;
     margin-bottom: 20px;
-    height: 36px;
+    height: 48px;
     width: 360px;
     text-align: right;
-    font-size: 36px;
+    font-size: 48px;
     padding: 10px;
     position: relative;
     justify-content: space-evenly;
