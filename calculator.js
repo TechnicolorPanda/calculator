@@ -7,7 +7,7 @@ let operator = "";
 let answer = 0;
 let numbers = 0;
 let array_num = -1;
-let subsequentNum = true;
+let back_arr = 0;
 
 display();
 
@@ -20,7 +20,8 @@ function display() {
     result.classList.add("box2");
     result.textContent = "0";
     container.appendChild(result);
-
+    equals.disabled = true;
+        
     //defines function of each button
 
     document.getElementById("backspace").addEventListener("click", function(){
@@ -75,7 +76,7 @@ function display() {
         returnAnswer(equation);
     })
     document.getElementById("dot").addEventListener("click", function(){
-        joinDigits(".");
+        joinDigits("dot");
     })
 
     //resets calculator when clear is selected
@@ -91,16 +92,53 @@ function display() {
         output.textContent = " ";
         result.textContent = "0";
         array_num = "-1";
+        equals.disabled = true;
+        dot.disabled = false;
+        backspace.disabled = true;
     }
 
-    function backspace() {
+    //deletes entry from last button selected
 
+    function backspace() {
+        if (firstNum == 0){
+            back_arr = equation.split("");
+            back_arr.pop();
+            output.textContent = back_arr.join("");
+            result.textContent = "";
+            equation = back_arr.join("");
+            back_arr = "";
+            return equation;
+        } else {
+            back_arr = firstNum.split("");
+            back_arr.pop();
+            if (back_arr.length > 0) {
+                result.textContent = back_arr.join("");
+                firstNum = back_arr.join("");
+                back_arr = "";
+                return firstNum;
+            } else if (back_arr.length = 0) {
+                result.textContent = back_arr[0];
+                firstNum = back_arr[0];
+                back_arr = "";
+                return firstNum;
+            } else {
+                result.textContent = "0";
+                firstNum = 0;
+                back_arr = "";
+                return firstNum;
+            }
+        }
     }
 
     //join digits on multi-digit numbers into a single number
         
     function joinDigits(n) {
+        if (n === "dot") {
+            dot.disabled = true;
+            n = ".";
+        }
         nextNum = n;
+        //backspace.disabled = false;
         if (typing == false){
             result.textContent = nextNum;
             firstNum = nextNum;
@@ -121,15 +159,17 @@ function display() {
         output.textContent = equation;
         firstNum = 0;
         typing = false;
+        equals.disabled = false;
+        dot.disabled = false;
         tmp_operator = x;
         array_num++;
         if (array_num == 0) {
-            let tmp_arr = equation.split(/[*+-/]/);
+            let tmp_arr = equation.split(/[\*\+\-\/]/);
             answer = tmp_arr[array_num];
             operator = tmp_operator;
             return answer;
         } else {
-            tmp_arr = equation.split(/[*+-/]/);
+            tmp_arr = equation.split(/[\*\+\-\/]/);
             answer = operate(answer, tmp_arr[array_num], operator);
             operator = tmp_operator;
             return answer;
@@ -141,10 +181,10 @@ function display() {
     function returnAnswer(equation) {
         equation = `${equation} ${firstNum}`;
         output.textContent = `${equation} =`;
-        tmp_arr = equation.split(/[*+-/]/);
+        tmp_arr = equation.split(/[\*\+\-\/]/);
         array_num++;
         answer = operate(answer, tmp_arr[array_num], operator);
-        result.textContent = answer;
+        result.textContent = answer.toFixed(2);
     }
 
     function operate(a,b,operator) {
@@ -177,7 +217,11 @@ function display() {
     }
 
     function divide(a,b) {
-        return (a/b);
+        if (b == 0) {
+            return result.textContent = "wormhole_created"
+        } else {
+            return (a/b);
+        }
     }
 
 }
