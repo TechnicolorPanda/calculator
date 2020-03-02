@@ -29,7 +29,7 @@ function display() {
     });
     document.getElementById("clear").addEventListener("click", function(){
         clearEntry();
-    });    
+    });
     document.getElementById("1").addEventListener("click", function(){
         joinDigits("1");
     });
@@ -79,6 +79,67 @@ function display() {
         joinDigits("dot");
     })
 
+    //adds keyboard selection of elements
+
+    addEventListener("keydown", function(e) {
+        switch(e.keyCode){
+        case 8:
+            backspace();
+            break;
+        case 67:
+            clearEntry();
+            break;
+        case 97:
+            joinDigits("1");
+            break;
+        case 98:
+            joinDigits("2");
+            break;
+        case 99:
+            joinDigits("3");
+            break;
+        case 100:
+            joinDigits("4");
+            break;
+        case 101:
+            joinDigits("5");
+            break;
+        case 102:
+            joinDigits("6");
+            break;
+        case 103:
+            joinDigits("7");
+            break;
+        case 104:
+            joinDigits("8");
+            break;
+        case 105:
+            joinDigits("9");
+            break;
+        case 96:
+            joinDigits("0");
+            break;
+        case 110:
+            joinDigits(".");
+            break;
+        case 107:
+            clickOperator("+");
+            break;
+        case 109:
+            clickOperator("-");
+            break;
+        case 106:
+            clickOperator("*");
+            break;
+        case 111:
+            clickOperator("/");
+            break;
+        case 187:
+            returnAnswer(equation);
+            break;
+        }
+    })
+
     //resets calculator when clear is selected
 
     function clearEntry(){
@@ -94,7 +155,6 @@ function display() {
         array_num = "-1";
         equals.disabled = true;
         dot.disabled = false;
-        backspace.disabled = true;
     }
 
     //deletes entry from last button selected
@@ -191,23 +251,19 @@ function display() {
         switch(operator) {
             case "+": 
                 return sum(a,b);
-            break;
             case "-":
                 return minus(a,b);
-            break;
             case "*":
                 return times(a,b);
-            break;
             case "/":
                 return divide(a,b);
-            break;
         }
     }
 
     function sum(a,b) {
         return parseFloat(a)+parseFloat(b);
     }
-
+    
     function minus(a,b) {
         return a-b;
     }
