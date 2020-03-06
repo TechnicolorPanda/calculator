@@ -20,11 +20,16 @@ function display() {
     result.classList.add("box2");
     result.textContent = "0";
     container.appendChild(result);
+
+    let tmp_operator = [];
+    let num_arr = [];
+    //let tmp_arr = [];
     equals.disabled = true;
-        
+    back.disabled = true;
+    
     //defines function of each button
 
-    document.getElementById("backspace").addEventListener("click", function(){
+    document.getElementById("back").addEventListener("click", function(){
         backspace();
     });
     document.getElementById("clear").addEventListener("click", function(){
@@ -153,52 +158,41 @@ function display() {
         output.textContent = " ";
         result.textContent = "0";
         array_num = "-1";
+        tmp_operator = [];
+        num_arr = [];
         equals.disabled = true;
         dot.disabled = false;
+        back.disabled = true;
     }
 
     //deletes entry from last button selected
 
     function backspace() {
-        if (firstNum == 0){
-            back_arr = equation.split("");
-            back_arr.pop();
-            output.textContent = back_arr.join("");
-            result.textContent = "";
-            equation = back_arr.join("");
+        back_arr = firstNum.split("");
+        back_arr.pop();
+        if (back_arr.length > 0) {
+            result.textContent = back_arr.join("");
+            firstNum = back_arr.join("");
             back_arr = "";
-            return equation;
+            return firstNum;
         } else {
-            back_arr = firstNum.split("");
-            back_arr.pop();
-            if (back_arr.length > 0) {
-                result.textContent = back_arr.join("");
-                firstNum = back_arr.join("");
-                back_arr = "";
-                return firstNum;
-            } else if (back_arr.length = 0) {
-                result.textContent = back_arr[0];
-                firstNum = back_arr[0];
-                back_arr = "";
-                return firstNum;
-            } else {
-                result.textContent = "0";
-                firstNum = 0;
-                back_arr = "";
-                return firstNum;
-            }
+            back.disabled = true;
+            result.textContent = "";
+            firstNum = "";
+            back_arr = "";
+            return firstNum;
         }
     }
 
     //join digits on multi-digit numbers into a single number
         
     function joinDigits(n) {
+        back.disabled = false;
         if (n === "dot") {
             dot.disabled = true;
             n = ".";
         }
         nextNum = n;
-        //backspace.disabled = false;
         if (typing == false){
             result.textContent = nextNum;
             firstNum = nextNum;
@@ -217,34 +211,40 @@ function display() {
     function clickOperator(x) {
         equation = `${equation} ${firstNum} ${x}`;
         output.textContent = equation;
-        firstNum = 0;
         typing = false;
         equals.disabled = false;
         dot.disabled = false;
-        tmp_operator = x;
-        array_num++;
-        if (array_num == 0) {
-            let tmp_arr = equation.split(/[\*\+\-\/]/);
-            answer = tmp_arr[array_num];
-            operator = tmp_operator;
-            return answer;
-        } else {
-            tmp_arr = equation.split(/[\*\+\-\/]/);
-            answer = operate(answer, tmp_arr[array_num], operator);
-            operator = tmp_operator;
-            return answer;
-        }
+        back.disabled = true;
+        tmp_operator.push(x);
+        num_arr.push(firstNum);
+        return num_arr;
     }
 
-    //returns an answer when equals sign is selected
+    //returns an answer when equals sign is selected following order of operations
 
     function returnAnswer(equation) {
         equation = `${equation} ${firstNum}`;
         output.textContent = `${equation} =`;
-        tmp_arr = equation.split(/[\*\+\-\/]/);
-        array_num++;
-        answer = operate(answer, tmp_arr[array_num], operator);
-        result.textContent = answer.toFixed(2);
+        num_arr.push(firstNum);
+        for (let i=-1; i<tmp_operator.length; i++){
+            if (tmp_operator.includes("*")) {
+                let a = tmp_operator.indexOf("*");
+                answer  = operate(num_arr[a], num_arr[a+1], "*");
+                num_arr.splice(a, 2, answer);
+                tmp_operator.splice(a, 1);
+            } else if (tmp_operator.includes("/")) {
+                let a = tmp_operator.indexOf("/");
+                answer  = operate(num_arr[a], num_arr[a+1], "/");
+                num_arr.splice(a, 2, answer);
+                tmp_operator.splice(a, 1); 
+            } else {
+                console.log(tmp_operator);
+                answer  = operate(num_arr[0], num_arr[1], tmp_operator[0]);
+                num_arr.splice(0, 2, answer);
+                tmp_operator.splice(0, 1);
+            }
+        }
+        result.textContent = parseFloat(answer.toFixed(8));
     }
 
     function operate(a,b,operator) {

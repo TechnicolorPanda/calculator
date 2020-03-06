@@ -29,13 +29,13 @@ body {
     -moz-border-radius:10px;
   }
 
-  #backspace, #clear {
+  #back, #clear {
     width: 45%;
     height: 12%;
     background-color: rgb(145, 147, 150);
   }
 
-  #backspace {
+  #back {
     font-size: 48px;
   }
 
