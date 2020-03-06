@@ -12,6 +12,8 @@ let back_arr = 0;
 display();
 
 function display() {
+    
+    //creates display boxes
     const output = document.createElement("div");
     output.classList.add("box1");
     output.textContent = "";
@@ -23,67 +25,35 @@ function display() {
 
     let tmp_operator = [];
     let num_arr = [];
-    //let tmp_arr = [];
     equals.disabled = true;
     back.disabled = true;
     
     //defines function of each button
 
-    document.getElementById("back").addEventListener("click", function(){
-        backspace();
-    });
-    document.getElementById("clear").addEventListener("click", function(){
-        clearEntry();
-    });
-    document.getElementById("1").addEventListener("click", function(){
-        joinDigits("1");
-    });
-    document.getElementById("2").addEventListener("click", function(){
-        joinDigits("2");
-    });
-    document.getElementById("3").addEventListener("click", function(){
-        joinDigits("3");
-    });
-    document.getElementById("4").addEventListener("click", function(){
-        joinDigits("4");
-    });    
-    document.getElementById("5").addEventListener("click", function(){
-        joinDigits("5");
-    });
-    document.getElementById("6").addEventListener("click", function(){
-        joinDigits("6");
-    });    
-    document.getElementById("7").addEventListener("click", function(){
-        joinDigits("7");
-    });
-    document.getElementById("8").addEventListener("click", function(){
-        joinDigits("8");
-    });    
-    document.getElementById("9").addEventListener("click", function(){
-        joinDigits("9");
-    });
-    document.getElementById("0").addEventListener("click", function(){
-        joinDigits("0");
-    });
-    document.getElementById("plus").addEventListener("click", function(){
-        clickOperator("+");
-    });
-    document.getElementById("minus").addEventListener("click", function(){
-        clickOperator("-");
-    });
-    document.getElementById("times").addEventListener("click", function(){
-        clickOperator("*");
-    });
-    document.getElementById("divide").addEventListener("click", function(){
-        clickOperator("/");
-    });
-    document.getElementById("equals").addEventListener("click", function(){
-        returnAnswer(equation);
-    })
-    document.getElementById("dot").addEventListener("click", function(){
-        joinDigits("dot");
-    })
+    elements = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "dot"]
 
+    elements.forEach (element => {
+        document.getElementById(element).addEventListener("click", () =>
+        joinDigits(element));
+    });
+
+    operChoices = ["+", "-", "*", "/"]
+
+    operChoices.forEach (operChoices => {
+        document.getElementById(operChoices).addEventListener("click", () =>
+        clickOperator(operChoices));
+    });
+
+    document.getElementById("back").addEventListener("click", () =>
+        backspace()
+    );
+    document.getElementById("clear").addEventListener("click", () =>
+        clearEntry()
+    );
+    document.getElementById("equals").addEventListener("click", () =>
+        returnAnswer(equation)
+    );
+ 
     //adds keyboard selection of elements
 
     addEventListener("keydown", function(e) {
@@ -148,7 +118,6 @@ function display() {
     //resets calculator when clear is selected
 
     function clearEntry(){
-        console.log("clear");
         firstNum = "";
         nextNum = "";
         equation = "";
@@ -158,6 +127,7 @@ function display() {
         output.textContent = " ";
         result.textContent = "0";
         array_num = "-1";
+        back_arr = [];
         tmp_operator = [];
         num_arr = [];
         equals.disabled = true;
@@ -165,7 +135,7 @@ function display() {
         back.disabled = true;
     }
 
-    //deletes entry from last button selected
+    //deletes entry of digits from last button selected
 
     function backspace() {
         back_arr = firstNum.split("");
@@ -217,7 +187,6 @@ function display() {
         back.disabled = true;
         tmp_operator.push(x);
         num_arr.push(firstNum);
-        return num_arr;
     }
 
     //returns an answer when equals sign is selected following order of operations
@@ -228,17 +197,16 @@ function display() {
         num_arr.push(firstNum);
         for (let i=-1; i<tmp_operator.length; i++){
             if (tmp_operator.includes("*")) {
-                let a = tmp_operator.indexOf("*");
-                answer  = operate(num_arr[a], num_arr[a+1], "*");
-                num_arr.splice(a, 2, answer);
-                tmp_operator.splice(a, 1);
+                let position = tmp_operator.indexOf("*");
+                answer  = operate(num_arr[position], num_arr[position+1], "*");
+                num_arr.splice(position, 2, answer);
+                tmp_operator.splice(position, 1);
             } else if (tmp_operator.includes("/")) {
-                let a = tmp_operator.indexOf("/");
-                answer  = operate(num_arr[a], num_arr[a+1], "/");
-                num_arr.splice(a, 2, answer);
-                tmp_operator.splice(a, 1); 
+                let position = tmp_operator.indexOf("/");
+                answer  = operate(num_arr[position], num_arr[position+1], "/");
+                num_arr.splice(position, 2, answer);
+                tmp_operator.splice(position, 1); 
             } else {
-                console.log(tmp_operator);
                 answer  = operate(num_arr[0], num_arr[1], tmp_operator[0]);
                 num_arr.splice(0, 2, answer);
                 tmp_operator.splice(0, 1);
